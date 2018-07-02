@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<script th:src="@{/user/script/jquery.min.js}" type="text/javascript"></script>
+<body id="blog" data-th-replace="layout/topAndFoot">
+
+
+<!-- content srart -->
+    <div class="am-u-md-8 am-u-sm-12"  th:fragment="content" id="content">
+        <input type="hidden" name="articleCatory" th:value="${category}" id="category">
+        <input type="hidden" name="page" th:value="${page.getNumber()}" id="page">
+        <input type="hidden" name="total" th:value="${page.getTotalPages()}" id="total">
+        <article class="am-g blog-entry-article" th:each="article:${page.content}">
+            <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
+                <img th:src="@{${article.coverImg.fileSrc}}" alt="暂无封面" class="am-u-sm-12">
+            </div>
+            <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
+                <span><a href="" class="blog-color" th:text="${article.category.categoryName}"> &nbsp;</a></span>
+                <span th:text="${article.author.name}">  &nbsp;</span>
+                <span th:text="${article.gmtCreate}"></span>
+                <h1><a th:href="@{'/article/readArticle?id='+${article.id}}" th:text="${article.title}"></a></h1>
+                <p th:text="${article.tag}">
+                </p>
+            </div>
+        </article>
+
+
+        <ul class="am-pagination am-pagination-centered">
+            <li class="am-pagination-prev"><a onclick="perv()">&laquo; 上一页</a></li>
+            <li><span th:text="${page.getNumber()+1}+'/'+${page.getTotalPages()}"></span></li>
+            <li class="am-pagination-next"><a onclick="next()">下一页 &raquo;</a></li>
+        </ul>
+        <script>
+            var cate = $("#category").val();
+            //客户端编码两次，服务端解码一次或者两次
+            cate = URLEncoder.encode(URLEncoder.encode(cate, "UTF-8"), "UTF-8")
+            var page = $("#page").val();
+            var total = $("#total").val();
+            if(page == 0){
+                var nextPage = 1;
+            }else{
+                var nextPage = eval(1+page);
+            }
+
+            function perv() {
+                if(page-1 >= 0) {
+                    if(cate != ""){
+                        window.location.href = "/user/toIndex?category=" + cate + "&page=" + (page-1);
+                    }else{
+                        window.location.href = "/user/toIndex?page=" + (page-1);
+                    }
+                }
+            }
+            function next() {
+                if(nextPage < total) {
+                    if(cate != ""){
+                        window.location.href = "/user/toIndex?category=" + cate + "&page=" + nextPage
+                    }else{
+                        window.location.href = "/user/toIndex?page="+ nextPage
+                    }
+                }
+            }
+
+        </script>
+    </div>
+
+</body>
+</html>
