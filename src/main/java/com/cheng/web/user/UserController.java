@@ -60,12 +60,11 @@ public class UserController extends BaseController {
     {
         return new ModelAndView("user/login");
     }
-    @RequestMapping("/toRegist")
+    //删除注册页面入口
     public ModelAndView toRegist()
     {
         return new ModelAndView("user/regist");
     }
-    @RequestMapping("/regist")
     public ModelAndView regist(String email, String password1, String password2, HttpServletRequest request){
         ModelAndView mav = new ModelAndView();
         String msg = userService.registUser(email, password1, password2, request);

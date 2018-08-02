@@ -22,16 +22,13 @@ import javax.servlet.http.HttpServletRequest;
 public class AdminController extends BaseController {
     @Autowired
     private UserService userService;
-    @RequestMapping("/toIndex")
     public ModelAndView toIndex(){
         return new ModelAndView("admin/mange");
     }
-    @RequestMapping("/toLogin")
     public ModelAndView toLogion()
     {
         return new ModelAndView("admin/login");
     }
-    @RequestMapping("/login")
     public String login(UserDO userDO, HttpServletRequest request){
         return userService.loginUser(userDO, request);
     }

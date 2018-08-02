@@ -35,6 +35,9 @@ spring:
     # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
 
+
+
+
   thymeleaf:
     mode: LEGACYHTML5
   jpa:
@@ -55,7 +58,6 @@ spring:
           min-idle: 0
           max-active: 8
           max-wait: -1
-
 #修改默认上传限制 注：spring boot 1.4.之后版本配置有变化
 multipart:
   max-file-size: 10Mb
